@@ -28,6 +28,9 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
+	// Jackson
+	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.2")
+
 	// External Libraries
 	implementation("org.jsoup:jsoup:1.18.3")
 
