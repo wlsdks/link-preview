@@ -1,0 +1,15 @@
+server:
+  port: 8200
+
+spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+metadata:
+  cache:
+    duration: 24h
+  extractor:
+    timeout: 5000
+    user-agent: "Mozilla/5.0 (compatible; MetadataBot/1.0)"
