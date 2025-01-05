@@ -2,14 +2,23 @@ server:
   port: 8200
 
 spring:
+  application:
+    name: link-preview-service
   data:
     redis:
       host: localhost
       port: 6379
 
 metadata:
-  cache:
-    duration: 24h
   extractor:
-    timeout: 5000
-    user-agent: "Mozilla/5.0 (compatible; MetadataBot/1.0)"
+    timeout: 5000 # 요청 타임아웃 (ms)
+    user-agent: "Mozilla/5.0 (compatible; MetadataBot/1.0)"  # 기본 User-Agent
+    max-retries: 3  # 최대 재시도 횟수
+    retry-delay: 1000  # 재시도 간격 (ms)
+  cache:
+    duration: 24h  # 캐시 유효 기간
+
+async:
+  core-pool-size: 5
+  max-pool-size: 10
+  queue-capacity: 25

@@ -1,7 +1,7 @@
 package io.github.stark.linkpreview.metadata.controller;
 
 import io.github.stark.linkpreview.metadata.domain.Metadata;
-import io.github.stark.linkpreview.metadata.service.CompositeMetadataService;
+import io.github.stark.linkpreview.metadata.service.MetadataService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MetadataController {
 
-    private final CompositeMetadataService metadataService;
+    private final MetadataService metadataService;
 
     @GetMapping("/preview")
     public ResponseEntity<Metadata> getPreview(@RequestParam String url) {

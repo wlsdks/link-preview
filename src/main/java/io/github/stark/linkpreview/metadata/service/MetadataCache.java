@@ -2,6 +2,7 @@ package io.github.stark.linkpreview.metadata.service;
 
 import io.github.stark.linkpreview.metadata.domain.Metadata;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,9 @@ import java.util.function.Function;
 public class MetadataCache {
 
     private final RedisTemplate<String, Metadata> redisTemplate;
-    private static final Duration CACHE_DURATION = Duration.ofHours(24);
+
+    @Value("${metadata.cache.duration}")
+    private Duration cacheDuration;
 
     public Metadata getOrCompute(String url, Function<String, Metadata> supplier) {
         String cacheKey = "metadata:" + url;
@@ -24,7 +27,7 @@ public class MetadataCache {
         }
 
         Metadata metadata = supplier.apply(url);
-        redisTemplate.opsForValue().set(cacheKey, metadata, CACHE_DURATION);
+        redisTemplate.opsForValue().set(cacheKey, metadata, cacheDuration);
         return metadata;
     }
 

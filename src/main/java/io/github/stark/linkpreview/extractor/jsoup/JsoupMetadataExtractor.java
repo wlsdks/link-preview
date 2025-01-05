@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -18,13 +19,23 @@ import java.time.LocalDateTime;
 @Component
 public class JsoupMetadataExtractor implements MetadataExtractor {
 
+    private final String userAgent;
+    private final int timeout;
+
+    public JsoupMetadataExtractor(
+            @Value("${metadata.extractor.user-agent}") String userAgent,
+            @Value("${metadata.extractor.timeout}") int timeout) {
+        this.userAgent = userAgent;
+        this.timeout = timeout;
+    }
+
     @Override
     public Metadata extract(String url) throws MetadataExtractionException {
         try {
             // Jsoup으로 문서 가져오기
             Document doc = Jsoup.connect(url)
-                    .userAgent("Mozilla/5.0")
-                    .timeout(5000)
+                    .userAgent(userAgent)  // 설정에서 주입받은 값 사용
+                    .timeout(timeout)      // 설정에서 주입받은 값 사용
                     .get();
 
             // OpenGraph 태그에서 메타데이터 추출 시도

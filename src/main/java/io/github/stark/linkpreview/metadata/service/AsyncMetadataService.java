@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class AsyncMetadataService {
 
-    private final CompositeMetadataService metadataService;
+    private final MetadataService metadataService;
 
     @Async
     public CompletableFuture<Metadata> extractMetadataAsync(String url) {
